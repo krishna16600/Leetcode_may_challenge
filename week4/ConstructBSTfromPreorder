@@ -1,0 +1,20 @@
+class Solution {
+    public TreeNode helper(int[] pre,int start,int end){
+       if(start<=end){
+           TreeNode root = new TreeNode(pre[start]);
+           int index = start;
+           while(index<pre.length && pre[index]<=pre[start]){
+               index++;
+           }
+           
+           root.left = helper(pre,start+1,index-1);
+           root.right = helper(pre,index,end);
+           return root;
+       }
+        
+        return null;
+    }
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return helper(preorder,0,preorder.length-1);
+    }
+}
