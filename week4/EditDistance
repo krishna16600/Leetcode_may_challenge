@@ -1,0 +1,33 @@
+class Solution {
+    public int minDistance(String s1, String s2) {
+         
+        if(s1.length()==0)
+            return s2.length();
+        
+        if(s2.length()==0)
+            return s1.length();
+        
+        int m = s1.length();
+        int n = s2.length();
+        
+        int[][] ans = new int[m+1][n+1];
+        for(int i=0;i<=n;i++)
+            ans[0][i] = i;
+        
+        for(int i=0;i<=m;i++)
+            ans[i][0] = i;
+            
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                //if both characters are same then both length will be dcreased by 1
+                     if(s1.charAt(m-i)==s2.charAt(n-j))
+                    ans[i][j] = ans[i-1][j-1];
+                else{
+                    ans[i][j] = 1+Math.min(ans[i-1][j-1],Math.min(ans[i-1][j],ans[i][j-1]));
+                }
+            }
+        }
+        
+        return ans[m][n];
+    }
+}
